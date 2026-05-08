@@ -65,6 +65,8 @@ export type PredictionMarket = {
   change24h: number;
   trend: "rising" | "falling" | "stable";
   endDate?: string;
+  slug?: string;
+  eventSlug?: string;
 };
 
 export type NewsItem = {

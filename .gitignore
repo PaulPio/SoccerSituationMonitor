@@ -43,3 +43,6 @@ next-env.d.ts
 # local agent/worktree artifacts
 .superpowers/
 .worktrees/
+
+.env
+.venv312/
