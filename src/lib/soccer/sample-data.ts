@@ -5,6 +5,7 @@ import type {
   MarketMover,
   MatchMarketMover,
   NewsItem,
+  PredictionMarket,
   TransferMarketMover,
 } from "./types";
 
@@ -209,6 +210,69 @@ const transferMovers: TransferMarketMover[] = [
 
 const signals: MarketMover[] = [...matchMovers, ...transferMovers];
 
+const predictionMarkets: PredictionMarket[] = [
+  {
+    id: "pm-rodri-champions",
+    question: "Will Rodri play 90 minutes vs Real Madrid?",
+    market: "Champions League",
+    league: "Champions League",
+    outcome: "No",
+    probability: 28,
+    volume: 892000,
+    volumeDisplay: "$892K",
+    change24h: -12,
+    trend: "falling",
+  },
+  {
+    id: "pm-wirtz-arsenal",
+    question: "Will Florian Wirtz transfer to Arsenal this summer?",
+    market: "Transfer 2026",
+    league: "Bundesliga",
+    outcome: "Yes",
+    probability: 42,
+    volume: 1240000,
+    volumeDisplay: "$1.24M",
+    change24h: 8,
+    trend: "rising",
+  },
+  {
+    id: "pm-psg-bayern",
+    question: "Will PSG advance past Bayern Munich?",
+    market: "Champions League",
+    league: "Champions League",
+    outcome: "Yes",
+    probability: 61,
+    volume: 2150000,
+    volumeDisplay: "$2.15M",
+    change24h: 3,
+    trend: "stable",
+  },
+  {
+    id: "pm-osimhen-chelsea",
+    question: "Will Victor Osimhen sign for Chelsea?",
+    market: "Transfer 2026",
+    league: "Serie A",
+    outcome: "Yes",
+    probability: 35,
+    volume: 678000,
+    volumeDisplay: "$678K",
+    change24h: -5,
+    trend: "falling",
+  },
+  {
+    id: "pm-premier-league",
+    question: "Will Liverpool win the Premier League?",
+    market: "Premier League",
+    league: "Premier League",
+    outcome: "Yes",
+    probability: 78,
+    volume: 3400000,
+    volumeDisplay: "$3.4M",
+    change24h: 2,
+    trend: "stable",
+  },
+];
+
 const news: NewsItem[] = [
   {
     id: "news-rodri-fitness",
@@ -312,8 +376,8 @@ const hotspots: Hotspot[] = [
     country: "England",
     region: "England",
     league: "Champions League",
-    x: 38,
-    y: 34,
+    x: 24,
+    y: 37,
     intensity: 95,
     dominantMarketType: "match",
     topEntity: "Manchester City",
@@ -338,8 +402,8 @@ const hotspots: Hotspot[] = [
     country: "Germany",
     region: "Germany",
     league: "Bundesliga",
-    x: 57,
-    y: 51,
+    x: 58,
+    y: 44,
     intensity: 74,
     dominantMarketType: "transfer",
     topEntity: "Bayer Leverkusen",
@@ -351,8 +415,8 @@ const hotspots: Hotspot[] = [
     country: "Italy",
     region: "Italy",
     league: "Serie A",
-    x: 55,
-    y: 62,
+    x: 62,
+    y: 56,
     intensity: 61,
     dominantMarketType: "transfer",
     topEntity: "AC Milan",
@@ -364,8 +428,8 @@ const hotspots: Hotspot[] = [
     country: "Italy",
     region: "Italy",
     league: "Serie A",
-    x: 58,
-    y: 72,
+    x: 72,
+    y: 66,
     intensity: 64,
     dominantMarketType: "transfer",
     topEntity: "Napoli",
@@ -377,8 +441,8 @@ const hotspots: Hotspot[] = [
     country: "France",
     region: "France",
     league: "Ligue 1",
-    x: 47,
-    y: 49,
+    x: 36,
+    y: 48,
     intensity: 70,
     dominantMarketType: "match",
     topEntity: "Paris Saint-Germain",
@@ -387,5 +451,5 @@ const hotspots: Hotspot[] = [
 ];
 
 export function getDashboardData(): DashboardData {
-  return { signals, matchMovers, transferMovers, news, injuries, hotspots };
+  return { signals, matchMovers, transferMovers, predictionMarkets, news, injuries, hotspots };
 }

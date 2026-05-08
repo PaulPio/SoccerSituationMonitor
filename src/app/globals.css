@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f3f5f1;
-  --foreground: #111f1a;
+  --background: #0a0e14;
+  --foreground: #e6edf3;
+  --panel-bg: #161b22;
+  --panel-border: #30363d;
+  --accent-emerald: #2ea67f;
+  --accent-amber: #d29922;
+  --accent-red: #f85149;
+  --accent-blue: #58a6ff;
+  --text-muted: #8b949e;
+  --signal-noise: #6e7681;
+  --signal-monitor: #2ea67f;
+  --signal-move: #d29922;
+  --signal-shock: #f85149;
 }
 
 @theme inline {
@@ -12,12 +23,35 @@
   --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
 button,
 select {
   font: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--panel-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--panel-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }

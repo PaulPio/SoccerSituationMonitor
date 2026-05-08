@@ -53,6 +53,20 @@ export type TransferMarketMover = DashboardSignal & {
 
 export type MarketMover = MatchMarketMover | TransferMarketMover;
 
+export type PredictionMarket = {
+  id: string;
+  question: string;
+  market: string;
+  league: League;
+  outcome: string;
+  probability: number;
+  volume: number;
+  volumeDisplay: string;
+  change24h: number;
+  trend: "rising" | "falling" | "stable";
+  endDate?: string;
+};
+
 export type NewsItem = {
   id: string;
   headline: string;
@@ -95,6 +109,7 @@ export type DashboardData = {
   signals: MarketMover[];
   matchMovers: MatchMarketMover[];
   transferMovers: TransferMarketMover[];
+  predictionMarkets: PredictionMarket[];
   news: NewsItem[];
   injuries: InjuryItem[];
   hotspots: Hotspot[];
