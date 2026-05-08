@@ -15,6 +15,7 @@ export type League = (typeof LEAGUES)[number];
 export type MarketType = (typeof MARKET_TYPES)[number];
 export type SignalSeverity = (typeof SIGNAL_SEVERITIES)[number];
 export type SourceTier = (typeof SOURCE_TIERS)[number];
+export type IsoTimestamp = `${number}-${number}-${number}T${number}:${number}:${number}Z`;
 
 export type DashboardSignal = {
   id: string;
@@ -27,7 +28,7 @@ export type DashboardSignal = {
   severity: SignalSeverity;
   sourceTier: SourceTier;
   region: string;
-  timestamp: string;
+  timestamp: IsoTimestamp;
   displayTime: string;
   impact: string;
   relatedSource: string;
@@ -60,7 +61,7 @@ export type NewsItem = {
   player?: string;
   marketType: MarketType;
   sourceTier: SourceTier;
-  timestamp: string;
+  timestamp: IsoTimestamp;
   displayTime: string;
   impactTag: string;
 };
