@@ -1,14 +1,20 @@
-export type League =
-  | "Premier League"
-  | "La Liga"
-  | "Serie A"
-  | "Bundesliga"
-  | "Ligue 1"
-  | "Champions League";
+export const LEAGUES = [
+  "Premier League",
+  "La Liga",
+  "Serie A",
+  "Bundesliga",
+  "Ligue 1",
+  "Champions League",
+] as const;
 
-export type MarketType = "match" | "transfer";
-export type SignalSeverity = "Noise" | "Monitor" | "Move" | "Shock";
-export type SourceTier = "Tier 1" | "Tier 2" | "Tier 3";
+export const MARKET_TYPES = ["match", "transfer"] as const;
+export const SIGNAL_SEVERITIES = ["Noise", "Monitor", "Move", "Shock"] as const;
+export const SOURCE_TIERS = ["Tier 1", "Tier 2", "Tier 3"] as const;
+
+export type League = (typeof LEAGUES)[number];
+export type MarketType = (typeof MARKET_TYPES)[number];
+export type SignalSeverity = (typeof SIGNAL_SEVERITIES)[number];
+export type SourceTier = (typeof SOURCE_TIERS)[number];
 
 export type DashboardSignal = {
   id: string;
@@ -22,6 +28,7 @@ export type DashboardSignal = {
   sourceTier: SourceTier;
   region: string;
   timestamp: string;
+  displayTime: string;
   impact: string;
   relatedSource: string;
 };
@@ -43,6 +50,8 @@ export type TransferMarketMover = DashboardSignal & {
   feeRange: string;
 };
 
+export type MarketMover = MatchMarketMover | TransferMarketMover;
+
 export type NewsItem = {
   id: string;
   headline: string;
@@ -52,6 +61,7 @@ export type NewsItem = {
   marketType: MarketType;
   sourceTier: SourceTier;
   timestamp: string;
+  displayTime: string;
   impactTag: string;
 };
 
@@ -81,7 +91,7 @@ export type Hotspot = {
 };
 
 export type DashboardData = {
-  signals: DashboardSignal[];
+  signals: MarketMover[];
   matchMovers: MatchMarketMover[];
   transferMovers: TransferMarketMover[];
   news: NewsItem[];
