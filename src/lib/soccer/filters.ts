@@ -18,6 +18,12 @@ export function getSeverityRank(severity: SignalSeverity): number {
   return SIGNAL_SEVERITIES.indexOf(severity);
 }
 
+function cleanLabel(label: string | undefined): string | undefined {
+  const trimmedLabel = label?.trim();
+
+  return trimmedLabel ? trimmedLabel : undefined;
+}
+
 export function filterSignals(signals: MarketMover[], filters: DashboardFilters): MarketMover[] {
   return signals.filter((signal) => {
     const matchesLeague = filters.league === "all" || signal.league === filters.league;
@@ -26,8 +32,8 @@ export function filterSignals(signals: MarketMover[], filters: DashboardFilters)
     const matchesSeverity = filters.severity === "all" || signal.severity === filters.severity;
     const matchesWatchlist =
       filters.watchlist === "all" ||
-      signal.club === filters.watchlist ||
-      signal.player === filters.watchlist;
+      cleanLabel(signal.club) === filters.watchlist ||
+      cleanLabel(signal.player) === filters.watchlist;
 
     return matchesLeague && matchesMarketType && matchesSeverity && matchesWatchlist;
   });
@@ -42,7 +48,13 @@ export function getTopSignals(signals: MarketMover[], limit = signals.length): M
         return severityDifference;
       }
 
-      return Date.parse(right.timestamp) - Date.parse(left.timestamp);
+      const timestampDifference = Date.parse(right.timestamp) - Date.parse(left.timestamp);
+
+      if (timestampDifference !== 0) {
+        return timestampDifference;
+      }
+
+      return left.id.localeCompare(right.id);
     })
     .slice(0, limit);
 }
@@ -52,10 +64,15 @@ export function getWatchlistOptions(signals: MarketMover[]): WatchlistOptions {
   const players = new Set<string>();
 
   for (const signal of signals) {
-    clubs.add(signal.club);
+    const club = cleanLabel(signal.club);
+    const player = cleanLabel(signal.player);
 
-    if (signal.player) {
-      players.add(signal.player);
+    if (club) {
+      clubs.add(club);
+    }
+
+    if (player) {
+      players.add(player);
     }
   }
 
