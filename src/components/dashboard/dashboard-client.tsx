@@ -2,16 +2,18 @@
 
 import { useMemo, useState } from "react";
 import type { DashboardData, MarketMover } from "@/lib/soccer/types";
+import type { MemesData } from "@/lib/soccer/meme-types";
 import { filterSignals, getTopSignals, type DashboardFilters } from "@/lib/soccer/filters";
 import { AlertList } from "./alert-list";
 import { DashboardControls } from "./dashboard-controls";
 import { DetailPanel } from "./detail-panel";
 import { SoccerMap } from "./soccer-map";
 import { MarketSections } from "./market-sections";
+import { MemesSection } from "./memes-section";
 import { NewsFeed } from "./news-feed";
 import { PredictionMarkets } from "./prediction-markets";
 
-export function DashboardClient({ data }: { data: DashboardData }) {
+export function DashboardClient({ data, memesData }: { data: DashboardData; memesData: MemesData }) {
   const [filters, setFilters] = useState<DashboardFilters>({
     league: "all",
     marketType: "all",
@@ -77,12 +79,13 @@ export function DashboardClient({ data }: { data: DashboardData }) {
             )}
             <NewsFeed news={data.news} />
             <PredictionMarkets predictionMarkets={data.predictionMarkets} />
+            <MemesSection memesData={memesData} />
           </div>
         </section>
 
         <footer className="flex items-center justify-between border-t border-[#30363d] pt-4 text-[10px] text-[#6e7681]">
           <span>Soccer Situation Monitor v1.0</span>
-          <span>Last updated: {new Date().toLocaleTimeString()}</span>
+          <span suppressHydrationWarning>Data: {memesData.source === "reddit" ? "Reddit Live" : "Sample"}</span>
         </footer>
       </div>
     </main>
